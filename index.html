@@ -28,7 +28,7 @@ setInterval(advanceFeatured,5000);
 const gallery=document.querySelector('#gallery');const box=document.querySelector('#lightbox');const preview=document.querySelector('#preview');
 works.forEach(({name,src})=>{const card=document.createElement('article');card.className='work';card.innerHTML='<img src="'+encodeURI(src)+'" alt="'+name+'" loading="lazy"><div><strong>'+name+'</strong><small>View full artwork ↗</small></div>';card.tabIndex=0;card.setAttribute('role','button');card.setAttribute('aria-label','View '+name);const open=()=>{preview.src=encodeURI(src);preview.alt=name;box.classList.add('open');document.body.style.overflow='hidden'};card.addEventListener('click',open);card.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open()}});gallery.append(card)});
 function closeBox(){box.classList.remove('open');document.body.style.overflow='';preview.removeAttribute('src')}document.querySelector('#close').addEventListener('click',closeBox);box.addEventListener('click',e=>{if(e.target===box)closeBox()});document.addEventListener('keydown',e=>{if(e.key==='Escape')closeBox()});
-document.addEventListener('contextmenu',e=>{if(e.target.closest('.feature img,.work img,.overlay img'))e.preventDefault()});
+document.addEventListener('contextmenu',e=>e.preventDefault());
 document.addEventListener('dragstart',e=>{if(e.target.closest('.feature img,.work img,.overlay img'))e.preventDefault()});
 document.querySelectorAll('.feature img,.overlay img').forEach(img=>img.draggable=false);
 const artworkObserver=new MutationObserver(()=>document.querySelectorAll('.work img').forEach(img=>img.draggable=false));
